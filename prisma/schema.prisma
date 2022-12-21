@@ -1,0 +1,44 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = "file:./rlocal.rls"
+}
+
+model InvoiceQueries {
+    id               Int       @id @default(autoincrement())
+    created_at       DateTime  @default(now())
+    updated_at       DateTime  @default(now()) @updatedAt
+    is_deleted       Boolean   @default(false)
+    deleted_at       DateTime?
+    header_query     String?
+    customer_query   String?
+    lines_query      String?
+    notes_query      String?
+    despatches_query String?
+    order_query      String?
+}
+
+model Invoices {
+    id            Int       @id @default(autoincrement())
+    created_at    DateTime  @default(now())
+    updated_at    DateTime  @default(now()) @updatedAt
+    is_deleted    Boolean   @default(false)
+    deleted_at    DateTime?
+    external_id   String
+    external_code String
+    json          String?
+    status        Int
+    status_desc   String
+    sending_type  String?
+}
+
+model Logs {
+    id         Int       @id @default(autoincrement())
+    created_at DateTime  @default(now())
+    updated_at DateTime  @default(now()) @updatedAt
+    is_deleted Boolean   @default(false)
+    deleted_at DateTime?
+}

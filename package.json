@@ -1,0 +1,26 @@
+{
+    "name": "rahatlocal",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "nodemon ./bin/www"
+    },
+    "dependencies": {
+        "@prisma/client": "^4.5.0",
+        "axios": "^0.27.2",
+        "config": "^3.3.8",
+        "cookie-parser": "~1.4.4",
+        "date-and-time": "^2.4.1",
+        "debug": "~2.6.9",
+        "ejs": "~2.6.1",
+        "express": "~4.16.1",
+        "http-errors": "~1.6.3",
+        "lodash": "^4.17.21",
+        "morgan": "~1.9.1",
+        "mssql": "^9.0.1",
+        "prisma": "^4.7.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.20"
+    }
+}

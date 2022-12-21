@@ -1,0 +1,214 @@
+<%- include('../../partials/doctype.ejs') %>
+
+<head>
+    <%- include('../../partials/header') %>
+    <title><%= page.display %> - <%= app.name %></title>
+    <%- include('../../partials/theme_css') %>
+</head>
+
+<body>
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <% if(page.name != 'login' && page.name != '404') { %>
+            <%- include('../../partials/sidebar') %>
+            <% } %>
+            <div class="layout-page">
+                <% if(page.name != 'login' && page.name != '404') { %>
+                <%- include('../../partials/navbar') %>
+                <% } %>
+                <div class="content-wrapper">
+                    <!-- Content -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="card">
+                            <div class="card-body demo-vertical-spacing demo-only-element">
+                                <div class="row col-12 justify-content-end">
+                                    <div class="col-6 col-md-2 mt-md-0 mt-1 d-grid">
+                                        <button type="button" class="btn btn-label-success waves-effect">
+                                            <i class="fa-solid fa-file-export fa-xs me-1"></i> Dışarı Aktar
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-md-2 mt-md-0 mt-1 d-grid">
+                                        <button type="button" class="btn btn-label-linkedin waves-effect">
+                                            <i class="fa-solid fa-list fa-xs me-1"></i> Toplu İşlemler
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row col-12">
+                                    <div class="col-12 col-md-3 mt-1">
+                                        <label class="form-label" for="searchbox">Ara</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i style="font-size: 0.8rem;" class="fa-solid fa-magnifying-glass fa-xs"></i></span>
+                                            <input id="searchbox" type="text" class="form-control" placeholder="Ara...">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3 mt-1">
+                                        <label class="form-label" for="fdate">Başlangıç Tarihi</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i style="font-size: 0.8rem;" class="fa-regular fa-calendar-days fa-xs"></i></span>
+                                            <input id="fdate" type="text" class="form-control" placeholder="Başlangıç Tarihi">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3 mt-1">
+                                        <label class="form-label" for="ldate">Bitiş Tarihi</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i style="font-size: 0.8rem;" class="fa-regular fa-calendar-days fa-xs"></i>
+                                            </span>
+                                            <input id="ldate" type="text" class="form-control" placeholder="Bitiş Tarihi">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-1 mt-1 d-grid pt-4">
+                                        <button type="button" class="btn btn-primary waves-effect" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
+                                            <i class="fa-solid fa-filter fa-xs me-1"></i>
+                                            <i class="fa-solid fa-arrow-down-wide-short fa-xs"></i>
+                                        </button>
+                                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel">
+                                            <div class="offcanvas-header">
+                                                <h5 id="offcanvasEndLabel" class="offcanvas-title">Filtrele / Sırala</h5>
+                                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                            </div>
+                                            <div class="offcanvas-body my-auto mx-0 pt-0">
+                                                <div class="divider divider-primary mb-0">
+                                                    <div class="divider-text">Sıralama</div>
+                                                </div>
+                                                <div class="col-12 mb-4">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <label for="order" class="form-label">Sıralama Sutünu</label>
+                                                            <select id="order" class="form-select">
+                                                                <option value="received_at" selected>Eklenme Tarihi</option>
+                                                                <option value="issue_date">Fatura Tarihi</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="dir" class="form-label">Yönü</label>
+                                                            <select id="dir" class="form-select">
+                                                                <option value="desc" selected>Azalan</option>
+                                                                <option value="asc">Artan</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="divider divider-primary mb-0">
+                                                    <div class="divider-text">Filtreleme</div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="status" class="form-label">Fatura Durumu</label>
+                                                    <select id="status" class="form-select">
+                                                        <option value="2012">Belge kuyrukta</option>
+                                                        <option value="2001">Belge işleniyor</option>
+                                                        <option value="2002">Belge GIB'e gönderildi</option>
+                                                        <option value="2003">Belge alıcıya iletildi</option>
+                                                        <option value="2000">Belge işlemleri başarı ile tamamlandı</option>
+                                                        <option value="4000">Belge hata aldı</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 mt-2">
+                                                    <label for="reply_status" class="form-label">Fatura Yanıt Durumu</label>
+                                                    <select id="reply_status" class="form-select">
+                                                        <option value="2004">Fatura yanıtı bekleniyor</option>
+                                                        <option value="2005">Fatura alıcı tarafından <b class="text-success">KABUL edildi</b></option>
+                                                        <option value="2006">Fatura alıcı tarafından RED edildi</option>
+                                                        <option value="2011">Fatura OTOMATİK olarak kabul edildi.</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 mt-2">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <label for="profile" class="form-label">Fatura Profili</label>
+                                                            <select id="profile" class="form-select">
+                                                                <option value="TICARIFATURA">Ticari Fatura</option>
+                                                                <option value="TEMELFATURA">Temel Fatura</option>
+                                                                <option value="IHRACAT">İhracat Faturası</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="type" class="form-label">Fatura Tipi</label>
+                                                            <select id="type" class="form-select">
+                                                                <option value="SATIS">Satış Faturası</option>
+                                                                <option value="IADE">İade Faturası</option>
+                                                                <option value="ISTISNA">İstisna Faturası</option>
+                                                                <option value="TEVKIFAT">Tevkifatlı Fatura</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mt-2">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <label for="read_status" class="form-label">Okunma Durumu</label>
+                                                            <select id="read_status" class="form-select">
+                                                                <option value="" selected>Tümü</option>
+                                                                <option value="true">Okundu</option>
+                                                                <option value="false">Okunmadı</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="print_status" class="form-label">Yazdırılma Durumu</label>
+                                                            <select id="print_status" class="form-select">
+                                                                <option value="" selected>Tümü</option>
+                                                                <option value="true">Yazdırıldı</option>
+                                                                <option value="false">Yazdırılmadı</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 d-grid mt-5">
+                                                    <button id="submit-fo" type="button" class="btn btn-linkedin waves-effect">
+                                                        Uygula
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-2 mt-1 d-grid pt-4">
+                                        <button id="search-button" type="button" class="btn btn-linkedin waves-effect">
+                                            <i class="fa-solid fa-magnifying-glass fa-xs me-1"></i> Ara
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-datatable dataTable_select text-nowrap table-responsive table-sm">
+                                <table class="table" id="invoices">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Okn./Yaz.</th>
+                                            <th>printed</th>
+                                            <th>Fatura</th>
+                                            <th>type</th>
+                                            <th>profile</th>
+                                            <th>Tutar</th>
+                                            <th>tax</th>
+                                            <th>currency</th>
+                                            <th>Tarih</th>
+                                            <th>envelope</th>
+                                            <th>Alıcı</th>
+                                            <th>receiver_tax</th>
+                                            <th>Durum</th>
+                                            <th>description</th>
+                                            <th>Yanıt</th>
+                                            <th>reply_code</th>
+                                            <th>percentage</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- / Content -->
+                    <%- include('../../partials/footer') %>
+                    <div class="content-backdrop fade"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layout-overlay layout-menu-toggle"></div>
+        <div class="drag-target"></div>
+    </div>
+    <%- include('../../partials/theme_js') %>
+</body>
+
+</html>
+Ï
