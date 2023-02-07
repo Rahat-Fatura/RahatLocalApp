@@ -18,11 +18,17 @@ class Queue {
         return this.elements.length;
     }
     async isValid() {
-        if (this.getLength() != this.length) return false;
-        if (!isEqual(this.elements[0], this.elements[1])) return false;
-        if (!isEqual(this.elements[0], this.elements[2])) return false;
-        if (!isEqual(this.elements[1], this.elements[2])) return false;
-        return true;
+        try {
+            if (this.getLength() != this.length) throw new Error("not equal");
+            for await (let element of this.elements) {
+                if (!isEqual(this.elements[0], element))
+                    throw new Error("not equal");
+            }
+            return true;
+        } catch (error) {
+            console.log("error :>> ", error);
+            return false;
+        }
     }
 }
 

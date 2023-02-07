@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const createInvoiceRecord = async (body) => {
+const createRMQRecord = async (body) => {
     return new Promise(async (resolve, reject) => {
         try {
             const invoice = await prisma.invoices.create({
@@ -11,11 +11,10 @@ const createInvoiceRecord = async (body) => {
                     json: null,
                     status: 100,
                     status_desc:
-                        "Fatura kaydı bildirimi geldi. Fatura hazırlanıyor!",
-                    sending_type: body.sending_type,
+                        "Notify bildirimi geldi. İşleme hazırlanılıyor!",
+                    sending_type: body.updating_type,
                 },
             });
-            console.log("invoice.id :>> ", invoice.id);
             resolve(invoice.id);
         } catch (error) {
             reject(error);
@@ -23,7 +22,7 @@ const createInvoiceRecord = async (body) => {
     });
 };
 
-const updateInvoiceRecord = async (body) => {
+const updateRMQRecord = async (body) => {
     return new Promise(async (resolve, reject) => {
         try {
             const invoice = await prisma.invoices.updateMany({
@@ -36,7 +35,7 @@ const updateInvoiceRecord = async (body) => {
                     json: body.json,
                     status: body.status,
                     status_desc: body.status_desc,
-                    sending_type: body.sending_type,
+                    sending_type: body.updating_type,
                 },
             });
             resolve(invoice.id);
@@ -47,6 +46,6 @@ const updateInvoiceRecord = async (body) => {
 };
 
 module.exports = {
-    createInvoiceRecord,
-    updateInvoiceRecord,
+    createRMQRecord,
+    updateRMQRecord,
 };

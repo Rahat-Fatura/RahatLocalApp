@@ -4,7 +4,7 @@ module.exports = (db_type) => {
             reject("DB type required!");
         }
         try {
-            const connect = require(`./mssql/connect`)();
+            const connect = require(`./${db_type}/connect`)();
             resolve(connect);
         } catch (error) {
             reject(error);

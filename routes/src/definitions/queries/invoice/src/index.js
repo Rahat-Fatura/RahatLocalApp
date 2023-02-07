@@ -23,6 +23,7 @@ const updateQueriesInvoice = async (req, res) => {
                 notes_query: String(body.header.notes),
                 despatches_query: String(body.header.despatches),
                 order_query: String(body.header.order),
+                up_inv_num_query: String(body.header.update_number),
                 customer_query: String(body.currents.customer),
                 lines_query: String(body.lines.main),
             },

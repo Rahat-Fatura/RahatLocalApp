@@ -12,6 +12,7 @@ const insertInvoice = async (req, res) => {
             sending_type: "INSERT",
         });
         json = await invoiceJson.builder(req.params.id);
+        console.log("json :>> ", json);
         let updateSendingRecord =
             await movements.invoice.sending.updateInvoiceRecord({
                 id: sendingRecord,
@@ -128,7 +129,60 @@ const updateInvoice = async (req, res) => {
     }
 };
 
+const deleteInvoice = async (req, res) => {
+    res.send(true);
+    let sendingRecord;
+    try {
+        sendingRecord = await movements.invoice.sending.createInvoiceRecord({
+            ex_id: req.params.id,
+            code: "0",
+            sending_type: "DELETE",
+        });
+        services.apiService.connect.invoice
+            .deleteInvoice(req.params.id, true)
+            .then(async (result) => {
+                let updateSendingRecord =
+                    await movements.invoice.sending.updateInvoiceRecord({
+                        id: sendingRecord,
+                        ex_id: req.params.id,
+                        code: "0",
+                        json: null,
+                        status: 200,
+                        status_desc:
+                            "Fatura silme bildirimi başarıyla sisteme gönderildi!",
+                        sending_type: "DELETE",
+                    });
+            })
+            .catch(async (error) => {
+                console.error("id: ", req.params.id, " => error: ", error);
+                let updateSendingRecord =
+                    await movements.invoice.sending.updateInvoiceRecord({
+                        id: sendingRecord,
+                        ex_id: req.params.id,
+                        code: "0",
+                        json: null,
+                        status: 400,
+                        status_desc: JSON.stringify(error),
+                        sending_type: "DELETE",
+                    });
+            });
+    } catch (error) {
+        console.error(error);
+        let updateSendingRecord =
+            await movements.invoice.sending.updateInvoiceRecord({
+                id: sendingRecord,
+                ex_id: req.params.id,
+                code: "0",
+                json: null,
+                status: 400,
+                status_desc: JSON.stringify(error),
+                sending_type: "DELETE",
+            });
+    }
+};
+
 module.exports = {
     insertInvoice,
     updateInvoice,
+    deleteInvoice,
 };

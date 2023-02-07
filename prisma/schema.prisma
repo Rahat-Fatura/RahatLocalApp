@@ -19,6 +19,7 @@ model InvoiceQueries {
     notes_query      String?
     despatches_query String?
     order_query      String?
+    up_inv_num_query String?
 }
 
 model Invoices {
@@ -33,6 +34,7 @@ model Invoices {
     status        Int
     status_desc   String
     sending_type  String?
+    updated_data  String?
 }
 
 model Logs {

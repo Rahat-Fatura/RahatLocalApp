@@ -24,7 +24,20 @@ const updateInvoice = (body, test) => {
     });
 };
 
+const deleteInvoice = (ex_id, test) => {
+    return new Promise((resolve, reject) => {
+        connect("delete", `/connect/invoice/${ex_id}`, null, test)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
+
 module.exports = {
     insertInvoice,
     updateInvoice,
+    deleteInvoice,
 };

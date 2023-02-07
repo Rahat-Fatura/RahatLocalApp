@@ -21,6 +21,7 @@ module.exports = (id) => {
                     err_text = "Fatura belirtilen SQL ile bulunamadı!";
                     break;
                 }
+                let notes = await queryBuilder.notesBuilder(id, db_type);
                 let lines = await queryBuilder.linesBuilder(id, db_type);
                 let customer = await queryBuilder.customerBuilder(id, db_type);
                 lines = lines.map((line) => {
@@ -52,6 +53,20 @@ module.exports = (id) => {
                         ...withholding,
                     };
                 });
+
+                let type = {};
+                header.Type
+                    ? (type = {
+                          Type: header.Type,
+                      })
+                    : null;
+                let profile = {};
+                header.Profile
+                    ? (profile = {
+                          Profile: header.Profile,
+                      })
+                    : null;
+
                 let json = {
                     integrator: config.get("integrator.name"),
                     document: {
@@ -65,7 +80,9 @@ module.exports = (id) => {
                             "YYYY-MM-DDTHH:mm:ss",
                             true
                         ),
-                        Type: header.Type,
+                        ...type,
+                        ...profile,
+                        Notes: notes,
                         Customer: customer,
                         Lines: lines,
                     },
