@@ -24,6 +24,13 @@ module.exports = (id) => {
                 let notes = await queryBuilder.notesBuilder(id, db_type);
                 let lines = await queryBuilder.linesBuilder(id, db_type);
                 let customer = await queryBuilder.customerBuilder(id, db_type);
+
+                let despatches = await queryBuilder.despatchesBuilder(
+                    id,
+                    db_type
+                );
+                let order = await queryBuilder.orderBuilder(id, db_type);
+
                 lines = lines.map((line) => {
                     let allowance = {};
                     let withholding = {};
@@ -67,6 +74,15 @@ module.exports = (id) => {
                       })
                     : null;
 
+                let despatchesObject = {};
+                if (despatches) {
+                    despatchesObject = { Despatches: despatches };
+                }
+
+                let orderObject = {};
+                if (order) {
+                    orderObject = { Order: order };
+                }
                 let json = {
                     integrator: config.get("integrator.name"),
                     document: {
@@ -80,6 +96,8 @@ module.exports = (id) => {
                             "YYYY-MM-DDTHH:mm:ss",
                             true
                         ),
+                        ...despatchesObject,
+                        ...orderObject,
                         ...type,
                         ...profile,
                         Notes: notes,
