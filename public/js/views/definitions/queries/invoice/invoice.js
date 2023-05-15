@@ -7,6 +7,7 @@ $(document).ready(function () {
                 despatches: $("#header_despatches_editor").val(),
                 order: $("#header_order_editor").val(),
                 update_number: $("#header_update_num_editor").val(),
+                check_unsended: $("#header_check_unsended_editor").val(),
             },
             currents: {
                 customer: $("#currents_customer_editor").val(),

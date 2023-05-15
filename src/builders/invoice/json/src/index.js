@@ -11,10 +11,10 @@ async function delay(ms) {
 module.exports = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let fifo = new Queue(config.get("setting.queueLength"));
+            let fifo = new Queue(config.get("settings.queueLength"));
             let resultJson;
             let err_text;
-            for (let i = 0; i < config.get("setting.numberOfRetries"); i++) {
+            for (let i = 0; i < config.get("settings.numberOfRetries"); i++) {
                 const db_type = config.get("local.type");
                 let header = await queryBuilder.headerBuilder(id, db_type);
                 if (!header) {
@@ -75,12 +75,12 @@ module.exports = (id) => {
                     : null;
 
                 let despatchesObject = {};
-                if (despatches) {
+                if (despatches?.Value) {
                     despatchesObject = { Despatches: despatches };
                 }
 
                 let orderObject = {};
-                if (order) {
+                if (order?.Value) {
                     orderObject = { Order: order };
                 }
                 let json = {
@@ -111,7 +111,7 @@ module.exports = (id) => {
                     resultJson = fifo.elements[0];
                     break;
                 } else {
-                    await delay(config.get("setting.queueCreatorWaitingMs"));
+                    await delay(config.get("settings.queueCreatorWaitingMs"));
                 }
             }
 

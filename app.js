@@ -3,13 +3,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
-require("./src/rmq")();
+const cronJobs = require("./src/cron");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
+
+require("./src/rmq")();
+cronJobs(app);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

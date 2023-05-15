@@ -5,5 +5,6 @@ module.exports = {
     notesBuilder: require("./src/notesBuilder"),
     linesBuilder: require("./src/linesBuilder"),
     customerBuilder: require("./src/customerBuilder"),
+    checkUnsended: require("./src/checkUnseded"),
     updInvNumFn: require("./src/updInvNumFn"),
 };
