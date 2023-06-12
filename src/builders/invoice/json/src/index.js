@@ -31,9 +31,16 @@ module.exports = (id) => {
                 );
                 let order = await queryBuilder.orderBuilder(id, db_type);
 
-                lines = lines.map((line) => {
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    let lineTaxes = {}
                     let allowance = {};
                     let withholding = {};
+                    if(line.ID) {
+                        lineTaxes = {
+                            Taxes: await queryBuilder.lineTaxesBuilder(line.ID, db_type),
+                        }
+                    }
                     line.AllowancePercent
                         ? (allowance = {
                               Allowance: {
@@ -48,6 +55,21 @@ module.exports = (id) => {
                               },
                           })
                         : null;
+                    lines[i] = {
+                        Name: line.Name,
+                        Quantity: line.Quantity,
+                        UnitCode: line.UnitCode,
+                        Price: line.Price,
+                        KDV: {
+                            Percent: line.KDVPercent,
+                        },
+                        ...allowance,
+                        ...withholding,
+                        ...lineTaxes,
+                    };
+                }
+
+                lines = lines.map((line) => {
                     return {
                         Name: line.Name,
                         Quantity: line.Quantity,
