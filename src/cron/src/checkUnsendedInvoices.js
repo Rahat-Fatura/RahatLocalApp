@@ -17,9 +17,9 @@ module.exports = async (app) => {
     try {
         const db_type = config.get("local.type");
         let invoices = await queryBuilder.checkUnsended(db_type);
-        // console.log(
-        //     `ERP kontrolü sonucu ${invoices.length} adet fatura bulundu!`
-        // );
+        console.log(
+            `ERP kontrolü sonucu ${invoices.length} adet fatura bulundu!`
+        );
         for await (inv of invoices) {
             let willSend = false;
             let ex_id_str = String(inv.external_id);

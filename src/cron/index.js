@@ -9,5 +9,12 @@ module.exports = (app) => {
         }
     );
 
+    cron.schedule(
+        config.get("settings.checkUnsendedDespatch.workingPeriod"),
+        () => {
+            require("./src/checkUnsendedDespatches")(app);
+        }
+    );
+
     // require("./src/checkUnsendedInvoices")();
 };

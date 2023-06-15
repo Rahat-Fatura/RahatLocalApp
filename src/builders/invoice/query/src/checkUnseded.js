@@ -30,7 +30,7 @@ module.exports = (db_type, dt) => {
                 config.get("settings.checkUnsendedInvoice.dateFormat"),
                 true
             );
-            // console.log("dateTime :>> ", dateTime);
+            console.log("dateTime :>> ", dateTime);
             connect(db_type).then((connection) => {
                 connection
                     .input("dateTime", dateTime)

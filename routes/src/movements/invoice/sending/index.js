@@ -3,7 +3,7 @@ var router = express.Router();
 
 const sendingCalls = require("./src");
 
-router.get("/invoice", sendingCalls.getInvoiceSendingPage);
-router.get("/invoice/dt-list", sendingCalls.getInvoiceSendingList);
+router.get("/", sendingCalls.getInvoiceSendingPage);
+router.get("/dt-list", sendingCalls.getInvoiceSendingList);
 
 module.exports = router;
