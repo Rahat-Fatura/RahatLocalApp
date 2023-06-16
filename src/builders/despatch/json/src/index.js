@@ -23,6 +23,7 @@ module.exports = (id) => {
                 }
                 let notes = await queryBuilder.notesBuilder(id, db_type);
                 let lines = await queryBuilder.linesBuilder(id, db_type);
+                console.log(lines);
                 let customer = await queryBuilder.customerBuilder(id, db_type);
 
                 let despatches = await queryBuilder.despatchesBuilder(
