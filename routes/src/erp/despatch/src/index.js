@@ -1,6 +1,6 @@
 const config = require("config");
-const queryBuilder = require("../../../../../src/builders/invoice/query");
-const invoiceJson = require("../../../../../src/builders/invoice/json");
+const queryBuilder = require("../../../../../src/builders/despatch/query");
+const invoiceJson = require("../../../../../src/builders/despatch/json");
 const services = require("../../../../../src/services");
 const movements = require("../../../../../src/builders/movements");
 
@@ -8,7 +8,7 @@ const getDespatchPage = async (req, res) => {
     const db_type = config.get("local.type");
     let datetime = req.query?.datetime;
     let despatches = await queryBuilder.checkUnsended(db_type, datetime);
-    // console.log("invoices :>> ", invoices);
+    // console.log("despatches :>> ", despatches);
     return res.render("pages/erp/despatch", {
         page: {
             name: "erp-despatch",

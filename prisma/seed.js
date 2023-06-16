@@ -192,9 +192,10 @@ AND (STL.BILLED = 1)
 AND INV.LOGICALREF = @erpId
 `,
       up_desp_num_query : `UPDATE LG_022_01_INVOICE SET FICHENO = @invNo WHERE LOGICALREF = @erpId`,
-      check_unsended_despatches_query : `SELECT 
+      check_unsended_despatches_query : `SSELECT 
       LOGICALREF AS external_id, 
-      FICHENO AS external_refno
+      FICHENO AS external_refno ,
+      INVNO, DATE_, INVOICEREF, CLIENTREF
     FROM 
       LG_022_01_STFICHE 
     WHERE 
