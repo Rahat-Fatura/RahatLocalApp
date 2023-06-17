@@ -1,6 +1,7 @@
 const connect = require("../../../connection");
 
 const insertDespatch = (body, test) => {
+    console.log("Gönderilen ==> ". body);
     return new Promise((resolve, reject) => {
         connect("post", `/connect/despatch`, body, test)
             .then((result) => {

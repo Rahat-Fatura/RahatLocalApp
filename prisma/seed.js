@@ -200,6 +200,9 @@ AND DESP.LOGICALREF = @erpId`,
     WHERE 
       TRCODE IN(7, 8, 9, 10)
       and DATE_ >= @dateTime`,
+      shipment_driver_query : `SELECT TOP 1 'Mehmet' as Name, 'Kanlıoğlu' as Surname, '11111111111' as ID FROM LG_022_01_STFICHE`,
+      shipment_carrier_query : `SELECT TOP 1 '1111111111' as TaxNumber, 'Kanlıoğlu Tic' as Name, 'Antakya' as Address, 'Antakya' as District, 'Hatay' as City, 'Türkiye' as Country FROM LG_022_01_STFICHE`,
+      shipment_delivery_query : `SELECT TOP 1 'Antakya' as Address, 'Antakya' as District, 'Hatay' as City, '31000' as PostalCode, 'Türkiye' as Country, '2022-10-19T16:32:45' as ActualDateTime FROM LG_022_01_STFICHE`
     },
   })
 }

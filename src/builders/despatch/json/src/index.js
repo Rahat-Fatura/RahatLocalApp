@@ -31,6 +31,9 @@ module.exports = (id) => {
                     db_type
                 );
                 let order = await queryBuilder.orderBuilder(id, db_type);
+                let shipment_driver = await queryBuilder.shipmentDriverBuilder(id, db_type);
+                let shipment_carrier = await queryBuilder.shipmentCarrierBuilder(id, db_type);
+                let shipment_delivery = await queryBuilder.shipmentDeliveryBuilder(id, db_type);
 
                 lines = lines.map((line) => {
                     let allowance = {};
@@ -103,6 +106,13 @@ module.exports = (id) => {
                         ...profile,
                         Notes: notes,
                         Customer: customer,
+                        Shipment: {
+                            "Driver" : shipment_driver,
+                            "Carrier" : shipment_carrier,
+                            "Delivery" : {
+                                "Address" : shipment_delivery
+                            }
+                        },
                         Lines: lines,
                     },
                 };

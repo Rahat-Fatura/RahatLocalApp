@@ -39,7 +39,7 @@ const insertDespatch = async (req, res) => {
                     });
             })
             .catch(async (error) => {
-                console.error("id: ", req.params.id, " => error: ", error);
+                console.error("BURDA id: ", req.params.id, " => error: ", error);
                 let updateSendingRecord =
                     await movements.despatch.sending.updateDespatchRecord({
                         id: sendingRecord,

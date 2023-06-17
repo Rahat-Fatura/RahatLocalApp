@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 
 const getQueriesDespatchPage = async (req, res) => {
     const queriesRecord = await prisma.despatchQueries.findFirst({});
+    // console.log(queriesRecord);
     return res.render("pages/queries/despatch", {
         page: {
             name: "queries-despatch",
@@ -17,7 +18,7 @@ const getQueriesDespatchPage = async (req, res) => {
 const updateQueriesDespatch = async (req, res) => {
     try {
         const body = req.body;
-        console.log(String(body.header.update_number));
+        // console.log(String(body.header.update_number));
         const update = await prisma.despatchQueries.updateMany({
             data: {
                 header_query: String(body.header.main),
@@ -30,6 +31,9 @@ const updateQueriesDespatch = async (req, res) => {
                 ),
                 customer_query: String(body.currents.customer),
                 lines_query: String(body.lines.main),
+                shipment_driver_query: String(body.shipment_driver_query.main),
+                shipment_carrier_query: String(body.shipment_carrier_query.main),
+                shipment_delivery_query: String(body.shipment_delivery_query.main),
             },
         });
         return res.send(true);

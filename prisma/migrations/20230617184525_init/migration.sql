@@ -29,7 +29,10 @@ CREATE TABLE "DespatchQueries" (
     "despatches_query" TEXT,
     "order_query" TEXT,
     "up_desp_num_query" TEXT,
-    "check_unsended_despatches_query" TEXT
+    "check_unsended_despatches_query" TEXT,
+    "shipment_driver_query" TEXT,
+    "shipment_carrier_query" TEXT,
+    "shipment_delivery_query" TEXT
 );
 
 -- CreateTable

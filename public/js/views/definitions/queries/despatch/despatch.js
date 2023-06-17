@@ -15,6 +15,15 @@ $(document).ready(function () {
             lines: {
                 main: $("#lines_main_editor").val(),
             },
+            shipment_driver_query: {
+                main: $("#shipment_driver_query_editor").val(),
+            },
+            shipment_carrier_query: {
+                main: $("#shipment_carrier_query_editor").val(),
+            },
+            shipment_delivery_query: {
+                main: $("#shipment_delivery_query_editor").val(),
+            },
         };
         $.ajax({
             type: "POST",

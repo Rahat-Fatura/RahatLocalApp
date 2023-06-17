@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const createDespatchRecord = async (body) => {
+    console.log(body);
     return new Promise(async (resolve, reject) => {
         try {
             const despatch = await prisma.despatches.create({
@@ -24,6 +25,7 @@ const createDespatchRecord = async (body) => {
 };
 
 const updateDespatchRecord = async (body) => {
+    // console.log(body);
     return new Promise(async (resolve, reject) => {
         try {
             const despatch = await prisma.despatches.updateMany({
