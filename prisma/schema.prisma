@@ -19,12 +19,45 @@ model InvoiceQueries {
     notes_query                   String?
     despatches_query              String?
     order_query                   String?
-    lines_taxes_query             String?
     up_inv_num_query              String?
     check_unsended_invoices_query String?
 }
 
+model DespatchQueries {
+    id                              Int       @id @default(autoincrement())
+    created_at                      DateTime  @default(now())
+    updated_at                      DateTime  @default(now()) @updatedAt
+    is_deleted                      Boolean   @default(false)
+    deleted_at                      DateTime?
+    header_query                    String?
+    customer_query                  String?
+    lines_query                     String?
+    notes_query                     String?
+    despatches_query                String?
+    order_query                     String?
+    up_desp_num_query               String?
+    check_unsended_despatches_query String?
+    shipment_driver_query           String?
+    shipment_carrier_query          String?
+    shipment_delivery_query         String?
+}
+
 model Invoices {
+    id            Int       @id @default(autoincrement())
+    created_at    DateTime  @default(now())
+    updated_at    DateTime  @default(now()) @updatedAt
+    is_deleted    Boolean   @default(false)
+    deleted_at    DateTime?
+    external_id   String
+    external_code String
+    json          String?
+    status        Int
+    status_desc   String
+    sending_type  String?
+    updated_data  String?
+}
+
+model Despatches {
     id            Int       @id @default(autoincrement())
     created_at    DateTime  @default(now())
     updated_at    DateTime  @default(now()) @updatedAt

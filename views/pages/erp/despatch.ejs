@@ -70,21 +70,28 @@
                                 <table class="table" id="invoices">
                                     <thead>
                                         <tr>
-                                            <th></th>
+                                            <th>#</th>
                                             <th>ERP</th>
                                             <th>invoiceno</th>
+                                            <th>İrsaliye Tarihi</th>
                                             <th>Alıcı</th>
-                                            <th>vkntckn</th>
-                                            <th>Fatura</th>
-                                            <th>payable</th>
-                                            <th>currency</th>
-                                            <th>Profil</th>
-                                            <th>type</th>
-                                            <th>Durum</th>
-                                            <th>statusdetail</th>
                                             <th>İşlemler</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        <% data.despatches.forEach(desp => { %>
+                                        <tr>
+                                            <td><%= desp.external_id %></td>
+                                            <td><%= desp.external_refno %></td>
+                                            <td><%= desp.INVNO %></td>
+                                            <td><%= desp.DATE_ %></td>
+                                            <td><%= desp.CLIENTREF %></td>
+                                            <td>
+                                                <button id="send_<%= desp.external_id %>" name="send_<%= desp.external_id %>" type="button" class="btn btn-success waves-effect waves-light">Sisteme Gönder</button>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
                                 </table>
                             </div>
                             <div class="modal animate__animated animate__fadeInDownBig" id="preview-invoice-modal" tabindex="-1" style="display: none;" aria-hidden="true">

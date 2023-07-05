@@ -5,15 +5,15 @@ const prisma = new PrismaClient();
 module.exports = (id, db_type) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let lineTaxesQueryObject = await prisma.invoiceQueries.findFirst({});
-            let lineTaxesQuery = lineTaxesQueryObject.lines_taxes_query;
-            if (lineTaxesQuery) {
+            let orderQueryObject = await prisma.despatchQueries.findFirst({});
+            let orderQuery = orderQueryObject.order_query;
+            if (orderQuery) {
                 connect(db_type).then((connection) => {
                     connection
-                        .input("lineId", id)
-                        .query(lineTaxesQuery)
+                        .input("erpId", id)
+                        .query(orderQuery)
                         .then((result) => {
-                            resolve(result.recordset);
+                            resolve(result.recordset[0]);
                         })
                         .catch((error) => {
                             reject(error);

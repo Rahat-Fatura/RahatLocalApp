@@ -2,18 +2,18 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const date_time = require("date-and-time");
 
-const getInvoiceSendingPage = async (req, res) => {
-    return res.render("pages/movements/invoiceSending", {
+const getDespatchSendingPage = async (req, res) => {
+    return res.render("pages/movements/despatchSending", {
         page: {
-            name: "movements-sending-invoice",
-            display: "Fatura Gönderim Listesi",
-            menu: "movements-sending-invoice",
+            name: "movements-sending-despatch",
+            display: "İrsaliye Gönderim Listesi",
+            menu: "movements-sending-despatch",
             uppermenu: "movements-sending",
         },
     });
 };
 
-const getInvoiceSendingList = async (req, res) => {
+const getDespatchSendingList = async (req, res) => {
     const draw = req.query.draw;
     const skip = req.query.start;
     const take = req.query.length;
@@ -60,14 +60,14 @@ const getInvoiceSendingList = async (req, res) => {
             },
         ];
     }
-    const recordsTotal = await prisma.invoices.count({
+    const recordsTotal = await prisma.despatches.count({
         where: {
             is_deleted: false,
         },
     });
     let recordsFiltered = recordsTotal;
     if (whereClause != {}) {
-        recordsFiltered = await prisma.invoices.count({
+        recordsFiltered = await prisma.despatches.count({
             where: {
                 is_deleted: false,
                 ...whereClause,
@@ -75,7 +75,7 @@ const getInvoiceSendingList = async (req, res) => {
         });
     }
 
-    prisma.invoices
+    prisma.despatches
         .findMany({
             where: {
                 is_deleted: false,
@@ -102,6 +102,6 @@ const getInvoiceSendingList = async (req, res) => {
 };
 
 module.exports = {
-    getInvoiceSendingPage,
-    getInvoiceSendingList,
+    getDespatchSendingPage,
+    getDespatchSendingList,
 };

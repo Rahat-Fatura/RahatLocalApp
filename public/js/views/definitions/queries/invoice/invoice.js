@@ -14,7 +14,6 @@ $(document).ready(function () {
             },
             lines: {
                 main: $("#lines_main_editor").val(),
-                taxes: $("#lines_taxes_editor").val(),
             },
         };
         $.ajax({

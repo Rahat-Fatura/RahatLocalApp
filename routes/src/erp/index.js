@@ -1,9 +1,10 @@
 var express = require("express");
 var router = express.Router();
 
-const erpCalls = require("./src");
+const invoiceRouter = require("./invoice");
+const despatchRouter = require("./despatch");
 
-router.get("/invoice", erpCalls.getInvoicePage);
-router.get("/invoice/send/:id", erpCalls.sendManualInvoice);
+router.use("/invoice", invoiceRouter);
+router.use("/despatch", despatchRouter);
 
 module.exports = router;
