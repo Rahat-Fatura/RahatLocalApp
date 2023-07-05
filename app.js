@@ -11,7 +11,7 @@ var usersRouter = require("./routes/users");
 var app = express();
 
 require("./src/rmq")();
-cronJobs(app);
+//cronJobs(app);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
