@@ -3,6 +3,8 @@ const prisma = new PrismaClient();
 const date_time = require("date-and-time");
 
 const getInvoiceSendingPage = async (req, res) => {
+    const invoices = await prisma.invoices.findMany();
+    // console.log(invoices)
     return res.render("pages/movements/invoiceSending", {
         page: {
             name: "movements-sending-invoice",
@@ -10,6 +12,7 @@ const getInvoiceSendingPage = async (req, res) => {
             menu: "movements-sending-invoice",
             uppermenu: "movements-sending",
         },
+        // data: invoices
     });
 };
 
@@ -88,6 +91,7 @@ const getInvoiceSendingList = async (req, res) => {
             },
         })
         .then(async (result) => {
+            console.log(result);
             return res.send({
                 draw,
                 recordsTotal,

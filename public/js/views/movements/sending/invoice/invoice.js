@@ -6,7 +6,7 @@ $(document).ready(function () {
         serverSide: true,
         processing: true,
         ajax: {
-            url: "/movements/sending/invoice/dt-list",
+            url: "/movements/invoice/dt-list",
             data: (d) => {
                 return $.extend({}, d, {
                     fdate: fdateObject.formatDate(

@@ -1,69 +1,69 @@
 const config = require("config");
-const queryBuilder = require("../../../../src/builders/invoice/query");
-const invoiceJson = require("../../../../src/builders/invoice/json");
-const services = require("../../../../src/services");
-const movements = require("../../../../src/builders/movements");
+const queryBuilder = require("../../../../../src/builders/despatch/query");
+const despatchJson = require("../../../../../src/builders/despatch/json");
+const services = require("../../../../../src/services");
+const movements = require("../../../../../src/builders/movements");
 
-const getInvoicePage = async (req, res) => {
+const getDespatchPage = async (req, res) => {
     const db_type = config.get("local.type");
     let datetime = req.query?.datetime;
-    let invoices = await queryBuilder.checkUnsended(db_type, datetime);
-    // console.log("invoices :>> ", invoices);
-    return res.render("pages/erp/invoice", {
+    let despatches = await queryBuilder.checkUnsended(db_type, datetime);
+    // console.log("despatches :>> ", despatches);
+    return res.render("pages/erp/despatch", {
         page: {
-            name: "erp-invoice",
-            display: "ERP Fatura Listesi",
-            menu: "erp-invoice",
+            name: "erp-despatch",
+            display: "ERP İrsaliye Listesi",
+            menu: "erp-despatch",
             uppermenu: "erp",
         },
         data: {
-            invoices,
+            despatches,
         },
     });
 };
 
-const sendManualInvoice = async (req, res) => {
+const sendManualDespatch = async (req, res) => {
     let sendingRecord, json;
     try {
-        sendingRecord = await movements.invoice.sending.createInvoiceRecord({
+        sendingRecord = await movements.despatch.sending.createDespatchRecord({
             ex_id: req.params.id,
             code: "0",
             sending_type: "UPDATE",
         });
-        json = await invoiceJson.builder(req.params.id);
+        json = await despatchJson.builder(req.params.id);
         let updateSendingRecord =
-            await movements.invoice.sending.updateInvoiceRecord({
+            await movements.despatch.sending.updateDespatchRecord({
                 id: sendingRecord,
                 ex_id: req.params.id,
                 code: json.document.External.RefNo,
                 json: JSON.stringify(json),
                 status: 101,
                 status_desc:
-                    "Fatura oluşturuldu. Sisteme gönderilmeye hazırlanılıyor!",
+                    "İrsaliye oluşturuldu. Sisteme gönderilmeye hazırlanılıyor!",
                 sending_type: "MANUAL",
             });
-        services.apiService.connect.invoice
-            .updateInvoice(json, true)
+        services.apiService.connect.despatch
+            .updateDespatch(json, true)
             .then(async (result) => {
                 let updateSendingRecord =
-                    await movements.invoice.sending.updateInvoiceRecord({
+                    await movements.despatch.sending.updateDespatchRecord({
                         id: sendingRecord,
                         ex_id: req.params.id,
                         code: json.document.External.RefNo,
                         json: JSON.stringify(json),
                         status: 200,
-                        status_desc: "Fatura başarıyla sisteme gönderildi!",
+                        status_desc: "İrsaliye başarıyla sisteme gönderildi!",
                         sending_type: "MANUAL",
                     });
                 return res.status(200).send({
                     status: true,
-                    message: "Fatura başarıyla sisteme gönderildi!",
+                    message: "İrsaliye başarıyla sisteme gönderildi!",
                 });
             })
             .catch(async (error) => {
                 console.error("id: ", req.params.id, " => error: ", error);
                 let updateSendingRecord =
-                    await movements.invoice.sending.updateInvoiceRecord({
+                    await movements.despatch.sending.updateDespatchRecord({
                         id: sendingRecord,
                         ex_id: req.params.id,
                         code: json.document.External.RefNo,
@@ -80,7 +80,7 @@ const sendManualInvoice = async (req, res) => {
     } catch (error) {
         console.error(error);
         let updateSendingRecord =
-            await movements.invoice.sending.updateInvoiceRecord({
+            await movements.despatch.sending.updateDespatchRecord({
                 id: sendingRecord,
                 ex_id: req.params.id,
                 code: json?.document?.External?.RefNo,
@@ -97,6 +97,6 @@ const sendManualInvoice = async (req, res) => {
 };
 
 module.exports = {
-    getInvoicePage,
-    sendManualInvoice,
+    getDespatchPage,
+    sendManualDespatch,
 };

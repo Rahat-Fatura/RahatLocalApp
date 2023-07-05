@@ -1,9 +1,10 @@
 {
     "name": "rahatlocal",
-    "version": "1.1.0",
+    "version": "1.0.2",
     "private": true,
     "scripts": {
-        "start": "nodemon ./bin/www"
+        "start": "nodemon ./bin/www",
+        "seed": "node prisma/seed.js"
     },
     "dependencies": {
         "@prisma/client": "^4.5.0",
@@ -20,7 +21,7 @@
         "morgan": "~1.9.1",
         "mssql": "^9.0.1",
         "node-cron": "^3.0.2",
-        "prisma": "^4.7.1"
+        "prisma": "^4.15.0"
     },
     "devDependencies": {
         "nodemon": "^2.0.20"
