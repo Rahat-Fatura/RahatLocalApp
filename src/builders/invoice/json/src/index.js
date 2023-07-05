@@ -69,20 +69,6 @@ module.exports = (id) => {
                     };
                 }
 
-                lines = lines.map((line) => {
-                    return {
-                        Name: line.Name,
-                        Quantity: line.Quantity,
-                        UnitCode: line.UnitCode,
-                        Price: line.Price,
-                        KDV: {
-                            Percent: line.KDVPercent,
-                        },
-                        ...allowance,
-                        ...withholding,
-                    };
-                });
-
                 let type = {};
                 header.Type
                     ? (type = {

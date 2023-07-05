@@ -1,11 +1,11 @@
 const config = require("config");
 const axios = require("axios");
 
-const connect = (method, url, body, test) => {
+const connect = (method, url, body) => {
     return new Promise(async (resolve, reject) => {
         const base_url = config.get(`services.apiGateway.url`);
         const api_key = config.get(`services.apiGateway.api_key`);
-        const requestUrl = `${base_url}${url}${test ? "?test=test" : ""}`;
+        const requestUrl = `${base_url}${url}`;
         let data;
         if (body) data = body;
         const headers = {
