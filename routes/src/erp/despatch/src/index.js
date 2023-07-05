@@ -1,6 +1,6 @@
 const config = require("config");
 const queryBuilder = require("../../../../../src/builders/despatch/query");
-const invoiceJson = require("../../../../../src/builders/despatch/json");
+const despatchJson = require("../../../../../src/builders/despatch/json");
 const services = require("../../../../../src/services");
 const movements = require("../../../../../src/builders/movements");
 

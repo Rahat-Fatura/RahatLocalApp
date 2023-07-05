@@ -23,47 +23,68 @@ module.exports = (id) => {
                 }
                 let notes = await queryBuilder.notesBuilder(id, db_type);
                 let lines = await queryBuilder.linesBuilder(id, db_type);
-                console.log(lines);
+                // console.log(lines);
                 let customer = await queryBuilder.customerBuilder(id, db_type);
 
-                let despatches = await queryBuilder.despatchesBuilder(
+                // let despatches = await queryBuilder.despatchesBuilder(
+                //     id,
+                //     db_type
+                // );
+                let order = await queryBuilder.orderBuilder(id, db_type);
+                let shipment_driver = await queryBuilder.shipmentDriverBuilder(
                     id,
                     db_type
                 );
-                let order = await queryBuilder.orderBuilder(id, db_type);
-                let shipment_driver = await queryBuilder.shipmentDriverBuilder(id, db_type);
-                let shipment_carrier = await queryBuilder.shipmentCarrierBuilder(id, db_type);
-                let shipment_delivery = await queryBuilder.shipmentDeliveryBuilder(id, db_type);
+                let shipment_carrier =
+                    await queryBuilder.shipmentCarrierBuilder(id, db_type);
+                let shipment_delivery =
+                    await queryBuilder.shipmentDeliveryBuilder(id, db_type);
 
-                lines = lines.map((line) => {
-                    let allowance = {};
-                    let withholding = {};
-                    line.AllowancePercent
-                        ? (allowance = {
-                              Allowance: {
-                                  Percent: line.AllowancePercent,
-                              },
-                          })
-                        : null;
-                    line.WithholdingTaxCode
-                        ? (withholding = {
-                              WithholdingTax: {
-                                  Code: line.WithholdingTaxCode,
-                              },
-                          })
-                        : null;
-                    return {
-                        Name: line.Name,
-                        Quantity: line.Quantity,
-                        UnitCode: line.UnitCode,
-                        Price: line.Price,
-                        KDV: {
-                            Percent: line.KDVPercent,
-                        },
-                        ...allowance,
-                        ...withholding,
+                let shipment_carier_object = {};
+                if (shipment_carrier?.TaxNumber) {
+                    shipment_carier_object = {
+                        Carrier: shipment_carrier,
                     };
-                });
+                }
+
+                let shipment_driver_object = {};
+                if (shipment_driver?.Name) {
+                    shipment_driver_object = {
+                        Driver: shipment_driver,
+                    };
+                }
+
+                let shipment_delivery_object = {};
+                if (shipment_delivery?.Address) {
+                    shipment_delivery_object = {
+                        Delivery: {
+                            Address: shipment_delivery,
+                        },
+                    };
+                }
+
+                let shipment_object = {};
+                if (
+                    shipment_delivery_object ||
+                    shipment_driver_object ||
+                    shipment_carier_object
+                ) {
+                    shipment_object = {
+                        Shipment: {
+                            ...shipment_carier_object,
+                            ...shipment_driver_object,
+                            ...shipment_delivery_object,
+                        },
+                    };
+                }
+                // lines = lines.map((line) => {
+                //     return {
+                //         Name: line.Name,
+                //         Quantity: line.Quantity,
+                //         UnitCode: line.UnitCode,
+                //         Price: line.Price,
+                //     };
+                // });
 
                 let type = {};
                 header.Type
@@ -78,10 +99,10 @@ module.exports = (id) => {
                       })
                     : null;
 
-                let despatchesObject = {};
-                if (despatches?.Value) {
-                    despatchesObject = { Despatches: despatches };
-                }
+                // let despatchesObject = {};
+                // if (despatches?.Value) {
+                //     despatchesObject = { Despatches: despatches };
+                // }
 
                 let orderObject = {};
                 if (order?.Value) {
@@ -100,19 +121,13 @@ module.exports = (id) => {
                             "YYYY-MM-DDTHH:mm:ss",
                             true
                         ),
-                        ...despatchesObject,
+                        // ...despatchesObject,
                         ...orderObject,
                         ...type,
                         ...profile,
                         Notes: notes,
                         Customer: customer,
-                        Shipment: {
-                            "Driver" : shipment_driver,
-                            "Carrier" : shipment_carrier,
-                            "Delivery" : {
-                                "Address" : shipment_delivery
-                            }
-                        },
+                        ...shipment_object,
                         Lines: lines,
                     },
                 };

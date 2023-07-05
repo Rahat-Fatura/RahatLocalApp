@@ -1,12 +1,32 @@
+const blockPage = (message) => {
+    $.blockUI({
+        message: `
+        <div class="loader-block d-flex justify-content-center">
+            <div class="sk-bounce me-3">
+                <div class="sk-bounce-dot"></div>
+                <div class="sk-bounce-dot"></div>
+            </div>
+            <p class="mb-0">${message}</p>
+        </div>`,
+        css: {
+            backgroundColor: "transparent",
+            border: "0",
+        },
+        overlayCSS: {
+            opacity: 0.5,
+        },
+    });
+};
+
 $(document).ready(function () {
-    const invoice_table = $("#invoices").DataTable({
+    const despatch_table = $("#despatches").DataTable({
         language: {
             url: "/vendor/libs/datatables/language/dataTables.tr.json",
         },
         serverSide: true,
         processing: true,
         ajax: {
-            url: "/movements/invoice/dt-list",
+            url: "/movements/sending/despatch/dt-list",
             data: (d) => {
                 return $.extend({}, d, {
                     fdate: fdateObject.formatDate(
@@ -104,7 +124,7 @@ $(document).ready(function () {
     });
 
     const searchTable = () => {
-        invoice_table.draw();
+        despatch_table.draw();
     };
 
     let ldate = new Date();
@@ -177,8 +197,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#invoices tbody").on("click", "#status-label", function () {
-        let data = invoice_table.row($(this).parents("tr")).data();
+    $("#despatches tbody").on("click", "#status-label", function () {
+        let data = despatch_table.row($(this).parents("tr")).data();
         let error;
         try {
             error = JSON.stringify(JSON.parse(data.status_desc), null, 2);
@@ -194,8 +214,8 @@ $(document).ready(function () {
         });
     });
 
-    $("#invoices tbody").on("click", "#show-json", function () {
-        let data = invoice_table.row($(this).parents("tr")).data();
+    $("#despatches tbody").on("click", "#show-json", function () {
+        let data = despatch_table.row($(this).parents("tr")).data();
         let error;
         try {
             error = JSON.stringify(JSON.parse(data.json), null, 4);
@@ -208,6 +228,48 @@ $(document).ready(function () {
             showConfirmButton: true,
             showCancelButton: false,
             confirmButtonText: "Tamam",
+        });
+    });
+
+    $('[name^="send_"]').on("click", (e) => {
+        let dspId = e.target.name.split("_")[1];
+        blockPage("İrsaliye sisteme gönderiliyor...");
+        $.ajax({
+            type: "GET",
+            url: `/erp/despatch/send/${dspId}`,
+            success: function (response) {
+                $.unblockUI();
+                Swal.fire({
+                    title: `${dspId} ID'li irsaliye gönderimi başarılı!`,
+                    icon: "success",
+                    confirmButtonText: "Tamam",
+                    customClass: {
+                        confirmButton: "btn btn-primary me-2",
+                    },
+                    buttonsStyling: false,
+                });
+            },
+            error: (e) => {
+                $.unblockUI();
+                Swal.fire({
+                    title: `${dspId} ID'li irsaliye gönderimi hatalı!`,
+                    text: JSON.stringify(
+                        e?.responseJSON
+                            ? e.responseJSON?.error
+                                ? e.responseJSON?.error
+                                : e?.responseJSON
+                            : e
+                    ),
+                    icon: "error",
+                    confirmButtonText: "Tamam",
+                    customClass: {
+                        confirmButton: "btn btn-danger me-2",
+                    },
+                    buttonsStyling: false,
+                });
+            },
+            finally: () => {
+            },
         });
     });
 });

@@ -19,6 +19,7 @@ model InvoiceQueries {
     notes_query                   String?
     despatches_query              String?
     order_query                   String?
+    lines_taxes_query             String?
     up_inv_num_query              String?
     check_unsended_invoices_query String?
 }

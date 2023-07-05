@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    const invoice_table = $("#invoices").DataTable({
+    const despatch_table = $("#despatches").DataTable({
         language: {
             url: "/vendor/libs/datatables/language/dataTables.tr.json",
         },
         serverSide: true,
         processing: true,
         ajax: {
-            url: "/movements/invoice/dt-list",
+            url: "/movements/despatch/dt-list",
             data: (d) => {
                 return $.extend({}, d, {
                     fdate: fdateObject.formatDate(
@@ -104,7 +104,7 @@ $(document).ready(function () {
     });
 
     const searchTable = () => {
-        invoice_table.draw();
+        despatch_table.draw();
     };
 
     let ldate = new Date();
@@ -177,8 +177,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#invoices tbody").on("click", "#status-label", function () {
-        let data = invoice_table.row($(this).parents("tr")).data();
+    $("#despatches tbody").on("click", "#status-label", function () {
+        let data = despatch_table.row($(this).parents("tr")).data();
         let error;
         try {
             error = JSON.stringify(JSON.parse(data.status_desc), null, 2);
@@ -194,8 +194,8 @@ $(document).ready(function () {
         });
     });
 
-    $("#invoices tbody").on("click", "#show-json", function () {
-        let data = invoice_table.row($(this).parents("tr")).data();
+    $("#despatches tbody").on("click", "#show-json", function () {
+        let data = despatch_table.row($(this).parents("tr")).data();
         let error;
         try {
             error = JSON.stringify(JSON.parse(data.json), null, 4);

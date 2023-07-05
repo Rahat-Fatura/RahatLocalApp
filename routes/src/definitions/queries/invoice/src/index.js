@@ -29,6 +29,7 @@ const updateQueriesInvoice = async (req, res) => {
                 ),
                 customer_query: String(body.currents.customer),
                 lines_query: String(body.lines.main),
+                lines_taxes_query: String(body.lines.taxes),
             },
         });
         return res.send(true);

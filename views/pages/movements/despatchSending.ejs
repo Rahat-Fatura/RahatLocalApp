@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-2 mt-1">
-                                        <label for="status" class="form-label">Fatura Durumu</label>
+                                        <label for="status" class="form-label">İrsaliye Durumu</label>
                                         <select id="status" class="form-select">
                                             <option value="200">Başarılı</option>
                                             <option value="400">Hatalı</option>
@@ -67,35 +67,31 @@
                                 </div>
                             </div>
                             <div class="card-datatable dataTable_select text-nowrap table-responsive">
-                                <table class="table" id="invoices">
+                                <table class="table" id="despatches">
                                     <thead>
                                         <tr>
-                                            <th></th>
-                                            <th>ERP</th>
-                                            <th>invoiceno</th>
-                                            <th>Alıcı</th>
-                                            <th>vkntckn</th>
-                                            <th>Fatura</th>
-                                            <th>payable</th>
-                                            <th>currency</th>
-                                            <th>Profil</th>
-                                            <th>type</th>
+                                            <th>#</th>
                                             <th>Durum</th>
-                                            <th>statusdetail</th>
-                                            <th>İşlemler</th>
+                                            <th>JSON</th>
+                                            <th>ErpID</th>
+                                            <th>ERP No</th>
+                                            <th>detail</th>
+                                            <th>Oluşturulma</th>
+                                            <th>Güncellenme</th>
+                                            <th>İşlem</th>
                                         </tr>
                                     </thead>
                                 </table>
                             </div>
-                            <div class="modal animate__animated animate__fadeInDownBig" id="preview-invoice-modal" tabindex="-1" style="display: none;" aria-hidden="true">
+                            <div class="modal animate__animated animate__fadeInDownBig" id="preview-despatch-modal" tabindex="-1" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel5">Fatura Önizlemesi</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel5">İrsaliye Önizlemesi</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body d-flex justify-content-center">
-                                            <iframe class="shadow-lg p-3 mb-5 bg-white rounded" id="invoiceFrame" width="900px" height="800px"></iframe>
+                                            <iframe class="shadow-lg p-3 mb-5 bg-white rounded" id="despatchFrame" width="900px" height="800px"></iframe>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary waves-effect waves-light"><i class="fa-solid fa-print"></i>&nbsp;&nbsp;Yazdır</button>

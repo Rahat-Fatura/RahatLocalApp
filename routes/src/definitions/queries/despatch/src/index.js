@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 const getQueriesDespatchPage = async (req, res) => {
     const queriesRecord = await prisma.despatchQueries.findFirst({});
-    // console.log(queriesRecord);
+    console.log(queriesRecord);
     return res.render("pages/queries/despatch", {
         page: {
             name: "queries-despatch",

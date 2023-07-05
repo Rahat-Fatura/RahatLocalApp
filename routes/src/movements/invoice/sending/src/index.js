@@ -12,7 +12,7 @@ const getInvoiceSendingPage = async (req, res) => {
             menu: "movements-sending-invoice",
             uppermenu: "movements-sending",
         },
-        data: invoices
+        // data: invoices
     });
 };
 
@@ -91,6 +91,7 @@ const getInvoiceSendingList = async (req, res) => {
             },
         })
         .then(async (result) => {
+            console.log(result);
             return res.send({
                 draw,
                 recordsTotal,

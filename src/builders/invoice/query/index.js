@@ -7,4 +7,5 @@ module.exports = {
     customerBuilder: require("./src/customerBuilder"),
     checkUnsended: require("./src/checkUnseded"),
     updInvNumFn: require("./src/updInvNumFn"),
+    lineTaxesBuilder: require("./src/lineTaxesBuilder"),
 };

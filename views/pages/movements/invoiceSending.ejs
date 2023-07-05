@@ -82,23 +82,7 @@
                                             <th>İşlem</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <% data.forEach(inv => { %>
-                                        <tr>
-                                            <td><%= inv.id %></td>
-                                            <td><%= inv.status %></td>
-                                            <td><%= inv.json %></td>
-                                            <td><%= inv.external_id %></td>
-                                            <td><%= inv.external_code %></td>
-                                            <td><%= inv.status_desc %></td>
-                                            <td><%= inv.created_at %></td>
-                                            <td><%= inv.updated_at %></td>
-                                            <td>
-                                                <button id="send_<%= inv.external_id %>" name="send_<%= inv.external_id %>" type="button" class="btn btn-success waves-effect waves-light">Sisteme Gönder</button>
-                                            </td>
-                                        </tr>
-                                        <% }) %>
-                                    </tbody>
+                                    
                                 </table>
                             </div>
                             <div class="modal animate__animated animate__fadeInDownBig" id="preview-invoice-modal" tabindex="-1" style="display: none;" aria-hidden="true">
