@@ -9,7 +9,7 @@
     "dependencies": {
         "@prisma/client": "^4.5.0",
         "amqplib": "^0.10.3",
-        "axios": "~0.27.2",
+        "axios": "^0.27.2",
         "config": "^3.3.8",
         "cookie-parser": "~1.4.4",
         "date-and-time": "^2.4.1",
@@ -21,7 +21,9 @@
         "morgan": "~1.9.1",
         "mssql": "^9.0.1",
         "node-cron": "^3.0.2",
-        "prisma": "^4.15.0"
+        "node-fetch": "^3.3.1",
+        "prisma": "^4.15.0",
+        "yargs-parser": "^21.1.1"
     },
     "devDependencies": {
         "nodemon": "^2.0.20"
