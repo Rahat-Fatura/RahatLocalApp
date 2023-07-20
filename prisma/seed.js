@@ -34,70 +34,70 @@ async function main() {
                         );
                         process.exit(1);
                     }
-                    queries["invoiceHeader"] = queries["invoiceHeader"].replace(
+                    queries["invoiceHeader"] = queries["invoiceHeader"]?.replace(
                         `{{${key}}}`,
                         argv[key]
                     );
                     queries["invoiceCustomer"] = queries[
                         "invoiceCustomer"
-                    ].replace(`{{${key}}}`, argv[key]);
-                    queries["invoiceLines"] = queries["invoiceLines"].replace(
+                    ]?.replace(`{{${key}}}`, argv[key]);
+                    queries["invoiceLines"] = queries["invoiceLines"]?.replace(
                         `{{${key}}}`,
                         argv[key]
                     );
-                    queries["invoiceNotes"] = queries["invoiceNotes"].replace(
+                    queries["invoiceNotes"] = queries["invoiceNotes"]?.replace(
                         `{{${key}}}`,
                         argv[key]
                     );
                     queries["invoiceDespatches"] = queries[
                         "invoiceDespatches"
-                    ].replace(`{{${key}}}`, argv[key]);
-                    queries["invoiceOrder"] = queries["invoiceOrder"].replace(
+                    ]?.replace(`{{${key}}}`, argv[key]);
+                    queries["invoiceOrder"] = queries["invoiceOrder"]?.replace(
                         `{{${key}}}`,
                         argv[key]
                     );
                     queries["invoiceLineTaxes"] = queries[
                         "invoiceLineTaxes"
-                    ].replace(`{{${key}}}`, argv[key]);
+                    ]?.replace(`{{${key}}}`, argv[key]);
                     queries["invoiceUpdateNumber"] = queries[
                         "invoiceUpdateNumber"
-                    ].replace(`{{${key}}}`, argv[key]);
+                    ]?.replace(`{{${key}}}`, argv[key]);
                     queries["invoiceListNotSended"] = queries[
                         "invoiceListNotSended"
-                    ].replace(`{{${key}}}`, argv[key]);
+                    ]?.replace(`{{${key}}}`, argv[key]);
                     queries["despatchHeader"] = queries[
                         "despatchHeader"
-                    ].replace(`{{${key}}}`, argv[key]);
+                    ]?.replace(`{{${key}}}`, argv[key]);
                     queries["despatchCustomer"] = queries[
                         "despatchCustomer"
-                    ].replace(`{{${key}}}`, argv[key]);
-                    queries["despatchLines"] = queries["despatchLines"].replace(
+                    ]?.replace(`{{${key}}}`, argv[key]);
+                    queries["despatchLines"] = queries["despatchLines"]?.replace(
                         `{{${key}}}`,
                         argv[key]
                     );
-                    queries["despatchNotes"] = queries["despatchNotes"].replace(
+                    queries["despatchNotes"] = queries["despatchNotes"]?.replace(
                         `{{${key}}}`,
                         argv[key]
                     );
-                    queries["despatchOrder"] = queries["despatchOrder"].replace(
+                    queries["despatchOrder"] = queries["despatchOrder"]?.replace(
                         `{{${key}}}`,
                         argv[key]
                     );
                     queries["despatchUpdateNumber"] = queries[
                         "despatchUpdateNumber"
-                    ].replace(`{{${key}}}`, argv[key]);
+                    ]?.replace(`{{${key}}}`, argv[key]);
                     queries["despatchListNotSended"] = queries[
                         "despatchListNotSended"
-                    ].replace(`{{${key}}}`, argv[key]);
+                    ]?.replace(`{{${key}}}`, argv[key]);
                     queries["despatchShipmentDriver"] = queries[
                         "despatchShipmentDriver"
-                    ].replace(`{{${key}}}`, argv[key]);
+                    ]?.replace(`{{${key}}}`, argv[key]);
                     queries["despatchShipmentCarrier"] = queries[
                         "despatchShipmentCarrier"
-                    ].replace(`{{${key}}}`, argv[key]);
+                    ]?.replace(`{{${key}}}`, argv[key]);
                     queries["despatchShipmentDelivery"] = queries[
                         "despatchShipmentDelivery"
-                    ].replace(`{{${key}}}`, argv[key]);
+                    ]?.replace(`{{${key}}}`, argv[key]);
                 }
             }
         }
