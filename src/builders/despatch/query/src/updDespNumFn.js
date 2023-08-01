@@ -10,7 +10,7 @@ module.exports = (id, new_number, db_type) => {
             connect(db_type).then((connection) => {
                 connection
                     .input("erpId", id)
-                    .input("despNo", new_number)
+                    .input("dspNo", new_number)
                     .query(upd_query)
                     .then((result) => {
                         resolve(result.recordset);
